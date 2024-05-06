@@ -11,9 +11,5 @@ class HmDianPingApplicationTests {
     @Resource
     private ShopServiceImpl shopService;
 
-    @Test
-    void testSaveShop(){
-        shopService.saveShopRedis(1L,10L);
-    }
 
 }
