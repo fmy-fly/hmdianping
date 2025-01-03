@@ -62,7 +62,7 @@ public class  UserServiceImpl extends ServiceImpl<UserMapper, User> implements I
         // 5.发送验证码
         log.debug("发送短信验证码成功,验证码:{}", code);
         //返回ok
-        return Result.ok();
+        return Result.ok(code);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class  UserServiceImpl extends ServiceImpl<UserMapper, User> implements I
             return Result.fail("手机号格式错误");
         }
         // 3.校验验证码
-       String cacheCode = stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);
+        String cacheCode = stringRedisTemplate.opsForValue().get(LOGIN_CODE_KEY + phone);
         String code = loginForm.getCode();
         if (cacheCode == null || !cacheCode.equals(code)) {
            //  不一致,报错

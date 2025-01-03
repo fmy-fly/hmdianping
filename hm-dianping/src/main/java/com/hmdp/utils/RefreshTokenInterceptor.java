@@ -30,10 +30,6 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
     }
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-
-
-
         //  1.获取请求头中的token
         String token = request.getHeader("authorization");
         if (StrUtil.isBlank(token)) {
@@ -43,10 +39,9 @@ public class RefreshTokenInterceptor implements HandlerInterceptor {
         // 2. 基于TOKEN获取redis中的用户
         String key = RedisConstants.LOGIN_USER_KEY + token;
         Map<Object, Object> userMap = stringRedisTemplate.opsForHash().entries(key);
-        System.out.println(key);
         // 3. 判断用户是否存在
         if(userMap.isEmpty()) {
-            return false;
+            return true;
         }
 
         // 5. 将查询到的HAsh数据转为UserDTO对象
